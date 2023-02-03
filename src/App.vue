@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-[100dvh] lg:justify-center lg:align-center  flex w-full bg-[#BEE2FD]  relative ">
-    <div class="self-center lg:flex lg:bg-black  lg:p-4 mx-auto lg:mx-0">
+    <div class="self-center lg:flex lg:bg-white  lg:p-4 mx-auto lg:mx-0">
       <SidebarMenu />
       <div class="w-[100%] max-w-[47rem] lg:px-[100px]">
         <ExactPage />

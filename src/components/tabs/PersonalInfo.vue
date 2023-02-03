@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute lg:static top-[6.1875rem]  flex flex-col space-y-[22px] py-[32px] px-[24px] bg-white left-[1rem] right-[1rem] lg rounded-lg">
+  <div class="absolute lg:static top-[6.1875rem]  flex flex-col space-y-[22px] py-[32px] px-[24px] bg-red-500 left-[1rem] right-[1rem] lg rounded-lg">
     <div class="flex flex-col space-y-[9px] ">
       <h3 class="capitalize text-[1.5rem] text-[#022959] font-bold">personal info</h3>
       <p class="text-[1rem] max-w-[15rem] md:max-w-full text-[#9699AA]">Please provide your name, email address, and phone number.</p>
