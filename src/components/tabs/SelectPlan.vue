@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute lg:static top-[6.1875rem] flex flex-col space-y-[22px] py-[32px] px-[24px] bg-white left-[1rem] right-[1rem] lg rounded-lg"
+    class="absolute lg:static top-[6.1875rem] flex flex-col overflow-y-scroll z-50 space-y-[22px] py-[32px] px-[24px] bg-white left-[1rem] right-[1rem] lg rounded-lg"
   >
     <div class="flex flex-col space-y-[9px]">
       <h3 class="capitalize text-[1.5rem] text-[#022959] font-bold">
@@ -14,13 +14,13 @@
     <TextInput :labelText="'email address'" :placeHolderText="'e.g. stephenking@lorem.com'" :id="'email'" :value="emailAddress" :name="'emailAddress'" />
     <TextInput :labelText="'phone number'" :placeHolderText="'e.g. +1 234 567 890'" :id="'phoneNo'" :value="phoneNo" :name="'phoneNo'" /> -->
     <div
-      class="flex flex-col md:flex-row md:items-center md:space-x-[18px] space-y-[12px]"
+      class="flex flex-col md:flex-row md:items-center  md:space-x-[18px] md:space-y-0 space-y-[12px]"
     >
-      <PlansCard v-for="card in plans" :key="card" :cardData="{ ...card }" />
+      <PlansCard v-for="card in plans" :key="card" :cardData="{ ...card }" :planPeriod="planPeriod" />
     </div>
     <div class="flex space-x-[1rem] items-center bg-[#F8F9FF] rounded-lg justify-center py-[13px]">
       <span :class="`text-[14px] font-semibold capitalize`">monthly</span>
-      <input type="checkbox" class="toggle toggle-md" checked />
+      <input type="checkbox" class="toggle toggle-md" name="planPeriod" @change="handleInputChange" :checked="planPeriod" />
       <span :class="`text-[14px] font-semibold capitalize`">yearly</span>
     </div>
   </div>
@@ -33,8 +33,15 @@ import { mapState } from "vuex";
 export default {
   components: { PlansCard },
   computed: {
-    ...mapState("inputs", ["plans"]),
+    ...mapState("inputs", ["plans", 'planPeriod']),
   },
+  methods:{
+    handleInputChange(e) {
+      const {name,value, type, checked} = e.target
+      this.$store.commit('inputs/handleChange', {name, value, type, checked})
+    },
+    
+  }
 };
 </script>
 

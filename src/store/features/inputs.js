@@ -1,4 +1,5 @@
 import { plan } from "@/data";
+import { addOns } from "@/data";
 
 const initialInput = {
   name: "",
@@ -6,6 +7,13 @@ const initialInput = {
   phoneNo: "",
   plans: [...plan],
   plan: "",
+  planPeriod:false,
+  addOnsState:{
+    onlineService:false,
+    largerStorage:false,
+    customizableProfile:false,
+  },
+  selectedAddOns:[]
 };
 
 export default {
@@ -19,6 +27,8 @@ export default {
       { page: 3, step: "step 3", pageTitle: "add-ons" },
       { page: 4, step: "step 4", pageTitle: "summary" },
     ],
+    addOnsData:[...addOns],
+    planPrice:'',
   },
   mutations:{
     nextStep(state, payload) {
@@ -45,13 +55,25 @@ export default {
     
     },
     handleChange:(state, payload) => {
-      const {name, value} = payload
-      state[name] = value
+      const {name, value, type, checked} = payload
+      if(name === 'onlineService' || name ===  'largerStorage'|| name === 'customizableProfile') {
+        state.addOnsState[name] = checked
+        return
+      }
+      state[name] = type === 'checkbox' ? checked : value
+      
+    },
+    selectPlan:(state, payload) => {
+      state.plan = payload.period
+      state.planPrice = payload.charges
     }
   },
   getters: {
     pageNo:(state) => {
       return state.pageNo
     },
+    getPlanPrice:(state) => {
+      return state.planPeriod ? state.planPrice.yearly : state.planPrice.monthly
+    }
   },
 };
