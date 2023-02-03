@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute lg:static top-[6.1875rem]  flex flex-col space-y-[22px] py-[32px] px-[24px] bg-white left-[1rem] right-[1rem] lg rounded-lg">
+  <div class="absolute lg:static top-[6.1875rem] justify-center items-center flex flex-col space-y-[22px] py-[32px] px-[24px] bg-white left-[1rem] right-[1rem] lg rounded-lg">
     <div class="flex flex-col space-y-[9px] items-center ">
       <img src="images/icon-thank-you.svg" class="w-[56px]" alt="thank you">
       <h3 class="capitalize text-[1.5rem] text-[#022959] font-bold">thank you</h3>

@@ -30,7 +30,7 @@
           <p class="text-[12px] text-[#9699AA]">{{ item.feature }}</p>
         </div>
       </div>
-      <span class="text-[12px] text-[#483EFF]">{{ planPeriod ? item.periodCharges.yearly : item.periodCharges.monthly }}</span>
+      <span class="text-[12px] text-[#483EFF]">+${{ planPeriod ? `${item.periodCharges.yearly}yr` : `${item.periodCharges.monthly}/mo` }}</span>
     </div>
   </div>
 </template>

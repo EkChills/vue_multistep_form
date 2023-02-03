@@ -13,24 +13,25 @@
           <span class="text-[14px] font-semibold capitalize">{{ plan }} ({{ planPeriod ? 'yearly' : 'monthly' }})</span>
           <span class="text-[14px] text-[#9699AA] underline capitalize">change</span>
         </div>
-        <span class="text-[14px] text-[#022959]">{{ getPlanPrice }}</span>
+        <span class="text-[14px] text-[#022959]">${{ planPeriod ? `${getPlanPrice}/yr` : `${getPlanPrice}/mo`}}</span>
       </div>
       <hr>
       <div v-if="addOnsState.onlineService" class="flex items-center justify-between">
         <span class="text-[#9699AA] text-[14px]">Online service</span>
-        <span class="text-[14px] text-[#022959]">{{ addOnPrice.onlineService }}</span>
+        <span class="text-[14px] text-[#022959]">+${{ planPeriod ? `${addOnPrice.onlineService}/yr` : `${addOnPrice.onlineService}/mo` }}</span>
       </div>
       <div v-if="addOnsState.largerStorage" class="flex items-center justify-between">
         <span class="text-[#9699AA] text-[14px]">Larger storage</span>
-        <span class="text-[14px] text-[#022959]">{{ addOnPrice.largerStorage }}</span>
+        <span class="text-[14px] text-[#022959]">+${{  planPeriod ? `${addOnPrice.largerStorage}/yr` : `${addOnPrice.largerStorage}/mo`}}</span>
       </div>
       <div v-if="addOnsState.customizableProfile" class="flex items-center justify-between">
         <span class="text-[#9699AA] text-[14px]">Customizable profile</span>
-        <span class="text-[14px] text-[#022959]">{{ addOnPrice.customizableProfile }}</span>
+        <span class="text-[14px] text-[#022959]">+${{  planPeriod ? `${addOnPrice.customizableProfile}/yr` : `${addOnPrice.customizableProfile}/mo` }}</span>
       </div>
     </div>
     <div class="flex items-center justify-between">
       <span class="text-[#9699AA] text-[14px] underline">Total({{ planPeriod ? 'per year' : 'per month' }})</span>
+      <span class="text-[16px] text-[#483EFF] font-bold" >+${{ getTotalPayment }}{{ planPeriod ? '/yr' : '/mo' }}</span>
     </div>
   </div>
 </template>
@@ -41,7 +42,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   computed:{
     ...mapState('inputs', ['plan', 'planPeriod', 'addOnsState', 'addOnPrice' ]),
-   ...mapGetters('inputs', ['getPlanPrice']) 
+   ...mapGetters('inputs', ['getPlanPrice', 'getTotalPayment']) 
   }
 }
 </script>

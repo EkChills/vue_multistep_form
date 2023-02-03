@@ -7,7 +7,7 @@ const initialInput = {
   inputError:{
     name:false,
     phoneNo:false,
-    email:false,
+    emailAddress:false,
   },
   phoneNo: "",
   plans: [...plan],
@@ -36,28 +36,44 @@ export default {
     addOnsData:[...addOns],
     planPrice:'',
     addOnPrice:{
-      onlineService:'',
-      largerStorage:'',
-      customizableProfile:''
-    }
+      onlineService:0,
+      largerStorage:0,
+      customizableProfile:0
+    },
+    totalPayment:0
   },
   mutations:{
+    
     nextStep(state, payload) {
+            let nextPage = state.pageNo + 1
+      let prevPage = state.pageNo - 1
       state.isConfirmed = false
       if(state.name === '') {
         state.inputError.name = true
         return
       }
       if(state.emailAddress === '') {
-        state.inputError.email = true
+        state.inputError.emailAddress = true
         return
       }
       if(state.phoneNo === '') {
         state.inputError.phoneNo = true
         return
       }
-      let nextPage = state.pageNo + 1
-      let prevPage = state.pageNo - 1
+      if(payload.operation === 'prev') {
+        if(state.pageNo === 1) {
+          return
+        }
+        state.pageNo = prevPage
+      }
+
+     if(state.pageNo > 1) {
+      if(state.plan === '') {
+        console.log('wasnt passed')
+        return
+      }
+     }
+
       if(payload.operation === 'next') {
         if(state.pageNo === 4) {
           return
@@ -69,12 +85,7 @@ export default {
         state.pageNo = payload.page
       }
 
-      if(payload.operation === 'prev') {
-        if(state.pageNo === 1) {
-          return
-        }
-        state.pageNo = prevPage
-      }
+    
     
     },
     handleChange:(state, payload) => {
@@ -92,6 +103,25 @@ export default {
     },
     setAddOnPrice:(state, payload) => {
       state.addOnPrice[payload.name] = payload.charges
+    },
+    confirmSubmit:(state) => {
+      state.isConfirmed = true
+    },
+    inputErrorCheck:(state) => {
+      state.inputError = {
+        name:false,
+        emailAddress:false,
+        phoneNo:false
+      }
+      if(state.name === '') {
+        state.inputError.name = true
+      }
+      if(state.emailAddress === '') {
+        state.inputError.emailAddress = true
+      }
+      if(state.phoneNo === '') {
+        state.inputError.phoneNo = true
+      }
     }
   },
   getters: {
@@ -100,6 +130,10 @@ export default {
     },
     getPlanPrice:(state) => {
       return state.planPeriod ? state.planPrice.yearly : state.planPrice.monthly
+    },
+    getTotalPayment:(state, getters) => {
+      const {onlineService, largerStorage, customizableProfile} = state.addOnPrice
+      return +onlineService + Number(largerStorage) + Number(customizableProfile) + Number(getters.getPlanPrice)
     }
   },
 };

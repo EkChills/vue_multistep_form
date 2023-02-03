@@ -3,7 +3,7 @@
     <img :src="cardData.icon" :alt="cardData.type">
     <div class="flex flex-col space-y-1">
       <h5 class="text-[16px] font-semibold text-[#022959]">{{ cardData.type }}</h5>
-      <span class="text-[14px] text-[#9699AA]">{{ planPeriod ? cardData.periodCharges.yearly : cardData.periodCharges.monthly }}</span>
+      <span class="text-[14px] text-[#9699AA]">${{ planPeriod ? `${cardData.periodCharges.yearly}/yr` : `${cardData.periodCharges.monthly}/mo` }}</span>
       <span v-if="planPeriod" class="text-[12px] text-[#022959]">{{ cardData.monthFree }}</span>
     </div>
   </div>
