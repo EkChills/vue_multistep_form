@@ -4,7 +4,7 @@
       <SidebarMenu />
       <div class="w-[100%] max-w-[47rem] lg:px-[100px]">
         <ExactPage />
-        <StepsFooter />
+        <StepsFooter v-if="!isConfirmed" />
       </div>
     </div>
   </main>
@@ -15,6 +15,7 @@ import './index.css'
 import SidebarMenu from './components/SidebarMenu.vue'
 import ExactPage from './components/ExactPage.vue'
 import StepsFooter from './components/StepsFooter.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -22,6 +23,9 @@ export default {
     SidebarMenu,
     ExactPage,
     StepsFooter,
+  },
+  computed:{
+    ...mapState('inputs', ['isConfirmed'])
   }
 }
 </script>

@@ -21,6 +21,7 @@
               class="checkbox checkbox-primary"
               :name="item.name"
               @change="handleInputChange"
+              @click="setPlanPrices({name:item.name, charges:planPeriod ? item.periodCharges.yearly : item.periodCharges.monthly})"
             />
           </label>
         </div>
@@ -43,11 +44,13 @@ export default {
   },
   methods:{
     handleInputChange(e, charges) {
-      console.log(charges);
       const {name,value, type, checked} = e.target
       console.log(e);
       this.$store.commit('inputs/handleChange', {name, value, type, checked, charges})
     
+  },
+  setPlanPrices(plans) {
+    this.$store.commit('inputs/setAddOnPrice', plans )
   }
 }}
 </script>

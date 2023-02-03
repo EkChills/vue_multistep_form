@@ -4,6 +4,11 @@ import { addOns } from "@/data";
 const initialInput = {
   name: "",
   emailAddress: "",
+  inputError:{
+    name:false,
+    phoneNo:false,
+    email:false,
+  },
   phoneNo: "",
   plans: [...plan],
   plan: "",
@@ -13,7 +18,8 @@ const initialInput = {
     largerStorage:false,
     customizableProfile:false,
   },
-  selectedAddOns:[]
+  selectedAddOns:[],
+  isConfirmed:false
 };
 
 export default {
@@ -29,10 +35,27 @@ export default {
     ],
     addOnsData:[...addOns],
     planPrice:'',
+    addOnPrice:{
+      onlineService:'',
+      largerStorage:'',
+      customizableProfile:''
+    }
   },
   mutations:{
     nextStep(state, payload) {
-      console.log('ran', payload);
+      state.isConfirmed = false
+      if(state.name === '') {
+        state.inputError.name = true
+        return
+      }
+      if(state.emailAddress === '') {
+        state.inputError.email = true
+        return
+      }
+      if(state.phoneNo === '') {
+        state.inputError.phoneNo = true
+        return
+      }
       let nextPage = state.pageNo + 1
       let prevPage = state.pageNo - 1
       if(payload.operation === 'next') {
@@ -66,6 +89,9 @@ export default {
     selectPlan:(state, payload) => {
       state.plan = payload.period
       state.planPrice = payload.charges
+    },
+    setAddOnPrice:(state, payload) => {
+      state.addOnPrice[payload.name] = payload.charges
     }
   },
   getters: {

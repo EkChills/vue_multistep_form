@@ -16,10 +16,21 @@
         <span class="text-[14px] text-[#022959]">{{ getPlanPrice }}</span>
       </div>
       <hr>
-      <div class="flex items-center justify-between">
+      <div v-if="addOnsState.onlineService" class="flex items-center justify-between">
         <span class="text-[#9699AA] text-[14px]">Online service</span>
-        <span class="text-[14px] text-[#022959]">{{  }}</span>
+        <span class="text-[14px] text-[#022959]">{{ addOnPrice.onlineService }}</span>
       </div>
+      <div v-if="addOnsState.largerStorage" class="flex items-center justify-between">
+        <span class="text-[#9699AA] text-[14px]">Larger storage</span>
+        <span class="text-[14px] text-[#022959]">{{ addOnPrice.largerStorage }}</span>
+      </div>
+      <div v-if="addOnsState.customizableProfile" class="flex items-center justify-between">
+        <span class="text-[#9699AA] text-[14px]">Customizable profile</span>
+        <span class="text-[14px] text-[#022959]">{{ addOnPrice.customizableProfile }}</span>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="text-[#9699AA] text-[14px] underline">Total({{ planPeriod ? 'per year' : 'per month' }})</span>
     </div>
   </div>
 </template>
@@ -29,7 +40,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   computed:{
-    ...mapState('inputs', ['plan', 'planPeriod', 'addOnsState' ]),
+    ...mapState('inputs', ['plan', 'planPeriod', 'addOnsState', 'addOnPrice' ]),
    ...mapGetters('inputs', ['getPlanPrice']) 
   }
 }
